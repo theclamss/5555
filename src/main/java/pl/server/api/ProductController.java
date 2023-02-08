@@ -25,7 +25,9 @@ public class ProductController {
 
         Product product = new ObjectMapper().readValue(data, Product.class);
         productService.save(product);
-        return this.localStorageService.uploadFile(file);
+
+
+        return this.localStorageService.uploadFile(file,product.getName());
     }
 
     @GetMapping(path = "/categories/{category}")
@@ -35,6 +37,8 @@ public class ProductController {
 
     @GetMapping(path = "/{id}")
     public Product getProductById(@RequestParam(value="id") Long id){
+        System.out.println(id);
+
         return productService.findProductById(id);
     }
 
@@ -52,7 +56,7 @@ public class ProductController {
         Product product  = new ObjectMapper().readValue(data, Product.class);
 
         if(file != null){
-            localStorageService.uploadFile(file);
+            localStorageService.uploadFile(file,product.getName());
         }
         productService.save(product);
     }

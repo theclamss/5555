@@ -40,4 +40,6 @@ public class Order{
     @DateTimeFormat(pattern="dd/MM/yyyy")
     private Date deliveryDate;
 
+    private String status;
+
 }

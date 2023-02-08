@@ -31,6 +31,7 @@ public class OrderService {
             BigDecimal totalPrice = order.getTotalPrice();
 
             newOrder.setUserId(id);
+            newOrder.setStatus("WAITING");
             newOrder.setTotalPrice(totalPrice);
             newOrder.setProducts(orderProducts);
             orderRepository.save(newOrder);
@@ -54,6 +55,8 @@ public class OrderService {
     }
 
     public Order updateOrder(Order order){
+
+
         return orderRepository.save(order);
     }
 }

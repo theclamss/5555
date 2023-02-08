@@ -15,13 +15,13 @@ public class LocalStorageService {
     @Value("${localStoragePath}")
     private String localStoragePath;
 
-    public String uploadFile(MultipartFile multipartFile) {
+    public String uploadFile(MultipartFile multipartFile,String z) {
         String fileURL = "";
         try {
             File file = convertMultipartFileToFile(multipartFile);
             String fileName = multipartFile.getOriginalFilename();
-            fileURL = localStoragePath + "/" + fileName;
-            uploadFileToLocalStorage(fileName, file);
+            fileURL = localStoragePath + "/" + z;
+            uploadFileToLocalStorage(fileName, multipartFile,z);
             file.delete();
         } catch (Exception e) {
             e.printStackTrace();
@@ -37,10 +37,12 @@ public class LocalStorageService {
         return convertedFile;
     }
 
-    private void uploadFileToLocalStorage(String fileName, File file) throws IOException {
-        File localStorageFile = new File(localStoragePath + "/" + fileName);
+    private void uploadFileToLocalStorage(String fileName, MultipartFile file, String z) throws IOException {
+        File localStorageFile = new File(localStoragePath + "/" +z+".jpg");
+        System.out.println("zebi "+ z+".jpg");
+        System.out.println("filename "+ fileName);
         FileOutputStream fos = new FileOutputStream(localStorageFile);
-        fos.write(file.getPath().getBytes());
+        fos.write(file.getBytes());
         fos.close();
     }
 
