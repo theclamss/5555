@@ -7,7 +7,9 @@ import lombok.*;
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.Size;
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 @Entity
@@ -21,6 +23,14 @@ import java.util.Set;
         generator = ObjectIdGenerators.PropertyGenerator.class
 )
 public class User {
+
+    public User(Long id,String userName,String email,String password,Address address,Set<Role> roles) {
+        this.id = id;
+        this.userName = userName;
+        this.password = password;
+        this.address = address;
+        this.roles = roles;
+    }
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -46,4 +56,24 @@ public class User {
             inverseJoinColumns = @JoinColumn(name = "role_id"))
     private Set<Role> roles = new HashSet<>();
 
+
+    @OneToMany(mappedBy = "uservendor", cascade = CascadeType.ALL)
+    private List<Product> products;
+
+    @Override
+    public String toString() {
+        return "User{" +
+                "id=" + id +
+                ", userName='" + userName + '\'' +
+                ", email='" + email + '\'' +
+                ", password='" + password + '\'' +
+                ", address=" + address +
+                ", roles=" + roles +
+                ", products=" + products +
+                '}';
+    }
+
+    public void AddToList(Product p){
+        products.add(p);
+    }
 }

@@ -19,6 +19,19 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @Override
+    public String toString() {
+        return "Product{" +
+                "id=" + id +
+                ", name='" + name + '\'' +
+                ", price=" + price +
+                ", description='" + description + '\'' +
+                ", fileName='" + fileName + '\'' +
+                ", category=" + category +
+                ", uservendor=" + uservendor +
+                '}';
+    }
+
     @Column(unique = true)
     private String name;
 
@@ -32,5 +45,12 @@ public class Product {
     @ManyToOne
     @JsonIgnore
     private Category category;
+
+    @ManyToOne
+    private User uservendor;
+
+
+
+
 
 }

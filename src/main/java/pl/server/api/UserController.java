@@ -92,10 +92,19 @@ public class UserController {
 */
 
     @PostMapping(path = "/register", consumes = "multipart/form-data")
-    public ResponseEntity<?> registerUser(@RequestParam("registerUser") String registerUser, @RequestParam("address")String address) throws IOException {
+    public ResponseEntity<?> registerUser(@RequestParam("isPresta") String isPresta,@RequestParam("registerUser") String registerUser, @RequestParam("address")String address) throws IOException {
         User userData = new ObjectMapper().readValue(registerUser, User.class);
         Address userAddress = new ObjectMapper().readValue(address, Address.class);
-        Role roleUser = roleRepository.findById(2L).orElseThrow();
+        Role roleUser;
+        if(isPresta.equals("\"oui\"")) {
+
+
+            roleUser = roleRepository.findById(12L).orElseThrow();
+            System.out.println("hahaha");
+        }
+        else
+            roleUser = roleRepository.findById(2L).orElseThrow();
+
 
         Set<Role> roles = new HashSet<>();
         roles.add(roleUser);

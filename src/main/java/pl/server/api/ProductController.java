@@ -1,10 +1,15 @@
 package pl.server.api;
 
+import com.fasterxml.jackson.databind.JsonNode;
+
 import com.fasterxml.jackson.databind.ObjectMapper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pl.server.model.Product;
+import pl.server.model.User;
+import pl.server.repository.UserRepository;
+import pl.server.service.CategoryService;
 import pl.server.service.LocalStorageService;
 import pl.server.service.ProductService;
 
@@ -20,10 +25,33 @@ public class ProductController {
     private final ProductService productService;
     private final LocalStorageService localStorageService;
 
+    private final UserRepository Userservice;
+
     @PostMapping(path = "", consumes = "multipart/form-data")
-    public String saveProduct(@RequestParam("product") String data, @RequestPart("file") MultipartFile file) throws IOException {
+    public String saveProduct(@RequestParam("user") String user,@RequestParam("product") String data, @RequestPart("file") MultipartFile file) throws IOException {
 
         Product product = new ObjectMapper().readValue(data, Product.class);
+        //User uservendor = new ObjectMapper().readValue(user, User.class);
+        //product.setUservendor(uservendor);
+
+        ObjectMapper objectMapper = new ObjectMapper();
+        JsonNode jsonNode = objectMapper.readTree(user);
+
+        Long id = jsonNode.get("id").asLong();
+
+        User vendor=Userservice.findUserById(id);
+
+
+        //vendor.getProducts().add(product);
+
+        //Userservice.save(vendor);
+
+        System.out.println("vendor list"+vendor.getProducts());
+
+
+        System.out.println("Product"+product);
+
+
         productService.save(product);
 
 
