@@ -32,7 +32,7 @@ public class Product {
                 '}';
     }
 
-    @Column(unique = true)
+
     private String name;
 
     private BigDecimal price;
@@ -46,7 +46,7 @@ public class Product {
     @JsonIgnore
     private Category category;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     private User uservendor;
 
 

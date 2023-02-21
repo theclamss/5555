@@ -8,11 +8,13 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pl.server.model.Product;
 import pl.server.model.User;
+import pl.server.repository.ProductRepository;
 import pl.server.repository.UserRepository;
 import pl.server.service.CategoryService;
 import pl.server.service.LocalStorageService;
 import pl.server.service.ProductService;
 
+import javax.websocket.server.PathParam;
 import java.io.IOException;
 import java.util.List;
 
@@ -23,6 +25,8 @@ import java.util.List;
 public class ProductController {
 
     private final ProductService productService;
+
+    private final ProductRepository productRepository;
     private final LocalStorageService localStorageService;
 
     private final UserRepository Userservice;
@@ -37,22 +41,24 @@ public class ProductController {
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(user);
 
+
+
         Long id = jsonNode.get("id").asLong();
 
         User vendor=Userservice.findUserById(id);
+
+
+        product.setUservendor(vendor);
+
+        productRepository.save(product);
+
+
 
 
         //vendor.getProducts().add(product);
 
         //Userservice.save(vendor);
 
-        System.out.println("vendor list"+vendor.getProducts());
-
-
-        System.out.println("Product"+product);
-
-
-        productService.save(product);
 
 
         return this.localStorageService.uploadFile(file,product.getName());
@@ -78,6 +84,11 @@ public class ProductController {
     @GetMapping(path = "")
     public List<Product> getAllProducts(){
         return productService.findAll();
+    }
+
+    @GetMapping(path = "/presta/{id}")
+    public List<Product> getAllProductsofUser(@PathParam(value="id") Long id){
+        return productService.findProductByIduser(id);
     }
     @PutMapping(path = "/{id}", consumes = "multipart/form-data")
     public void updateProduct(@RequestParam("product") String data, @RequestPart("file") MultipartFile file) throws IOException {

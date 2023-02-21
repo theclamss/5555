@@ -62,6 +62,10 @@ public class ProductService {
     public Product findProductById(Long id){
         return productRepository.findProductById(id);
     }
+
+    public List<Product> findProductByIduser(Long id){
+        return productRepository.findProductsByUserId(id);
+    }
     public boolean existsByName(String name){
         return productRepository.existsByName(name);
     }
