@@ -38,6 +38,8 @@ public class ProductController {
         //User uservendor = new ObjectMapper().readValue(user, User.class);
         //product.setUservendor(uservendor);
 
+
+
         ObjectMapper objectMapper = new ObjectMapper();
         JsonNode jsonNode = objectMapper.readTree(user);
 
@@ -47,6 +49,9 @@ public class ProductController {
 
         User vendor=Userservice.findUserById(id);
 
+        System.out.println("data"+data);
+
+        System.out.println("category"+product.getCategory());
 
         product.setUservendor(vendor);
 

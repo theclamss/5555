@@ -43,7 +43,7 @@ public class Product {
     private String fileName;
 
     @ManyToOne
-    @JsonIgnore
+
     private Category category;
 
     @ManyToOne(fetch = FetchType.EAGER)
