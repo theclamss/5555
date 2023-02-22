@@ -5,6 +5,7 @@ import pl.server.model.Category;
 
 public interface CategoryRepository extends JpaRepository<Category, Long> {
 
+
     Category findCategoryById(Long id);
     Category findCategoryByName(String name);
     boolean existsByName(String name);

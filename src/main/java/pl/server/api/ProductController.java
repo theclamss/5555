@@ -8,6 +8,7 @@ import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 import pl.server.model.Product;
 import pl.server.model.User;
+import pl.server.repository.CategoryRepository;
 import pl.server.repository.ProductRepository;
 import pl.server.repository.UserRepository;
 import pl.server.service.CategoryService;
@@ -31,12 +32,14 @@ public class ProductController {
 
     private final UserRepository Userservice;
 
+    private final CategoryRepository CATEGORYREP;
+
     @PostMapping(path = "", consumes = "multipart/form-data")
     public String saveProduct(@RequestParam("user") String user,@RequestParam("product") String data, @RequestPart("file") MultipartFile file) throws IOException {
 
+
         Product product = new ObjectMapper().readValue(data, Product.class);
-        //User uservendor = new ObjectMapper().readValue(user, User.class);
-        //product.setUservendor(uservendor);
+
 
 
 
@@ -51,7 +54,7 @@ public class ProductController {
 
         System.out.println("data"+data);
 
-        System.out.println("category"+product.getCategory());
+
 
         product.setUservendor(vendor);
 

@@ -1,6 +1,7 @@
 package pl.server.model;
 
 import com.fasterxml.jackson.annotation.JsonIdentityInfo;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.ObjectIdGenerators;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -29,5 +30,6 @@ public class Category {
 
     @OneToMany(cascade = CascadeType.ALL)
     @JoinColumn(name = "category_id")
+    @JsonIgnore
     private List<Product> products;
 }
