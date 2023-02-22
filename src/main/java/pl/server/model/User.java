@@ -30,6 +30,7 @@ public class User {
         this.password = password;
         this.address = address;
         this.roles = roles;
+        this.email=email;
     }
 
     @Id
@@ -40,7 +41,7 @@ public class User {
 
     @Email
     @Column(unique = true)
-    private String email;
+    public String email;
 
     @Size(max = 120)
     private String password;

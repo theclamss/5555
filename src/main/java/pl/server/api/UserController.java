@@ -76,13 +76,16 @@ public class UserController {
         Set<Role> roles = new HashSet<>();
         roles.add(roleUser);
 
-        User user = new User(userData.getId(), userData.getUserName(), userData.getEmail(), encoder.encode(userData.getPassword()), userAddress, roles);
+        User user = new User(userData.getId(), userData.getUserName(), userData.email, encoder.encode(userData.getPassword()), userAddress, roles);
 
         if(userRepository.existsByUserName(user.getUserName())){
+
             return ResponseEntity.badRequest().body("Error: Name is already taken");
         }
 
         if(userRepository.existsByEmail(user.getEmail())){
+
+            System.out.println(user);
             return ResponseEntity.badRequest().body("Error: Email is already taken");
         }
         userRepository.save(user);
