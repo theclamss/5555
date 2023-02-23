@@ -34,6 +34,7 @@ public class OrderService {
             newOrder.setStatus("WAITING");
             newOrder.setTotalPrice(totalPrice);
             newOrder.setProducts(orderProducts);
+            newOrder.setDateDeLivraisonClient(order.getDateDeLivraisonClient());
             orderRepository.save(newOrder);
 
             return ResponseEntity

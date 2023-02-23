@@ -33,7 +33,7 @@ public class OrderController {
     @PostMapping(consumes = "multipart/form-data")
     public ResponseEntity<String> createUserRequest(@RequestParam("order") String data) throws IOException {
         Order order = new ObjectMapper().readValue(data, Order.class);
-
+        System.out.println(order.getDateDeLivraisonClient());
         return orderService.createOrder(order);
 
     }
@@ -41,6 +41,7 @@ public class OrderController {
 
     @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Order updateOrder(@RequestBody Order order){
+        System.out.println("hahahahahh"+order);
         return orderService.updateOrder(order);
     }
 

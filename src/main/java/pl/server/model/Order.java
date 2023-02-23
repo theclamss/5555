@@ -42,4 +42,9 @@ public class Order{
 
     private String status;
 
+
+
+
+    private Date dateDeLivraisonClient;
+
 }
