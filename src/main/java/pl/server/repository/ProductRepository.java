@@ -18,6 +18,9 @@ public interface ProductRepository extends JpaRepository<Product, Long> {
     List<Product> findProductsByUserId(@Param("id") Long id);
     List<Product> findByUservendor_IdAndUservendorIsNotNull(Long id);
 
+
+    List<Product> findProductByNameStartingWithIgnoreCase(String name);
+
     Product findProductByName(String name);
 
 //    @Query("select * from product where product.category.name = ")

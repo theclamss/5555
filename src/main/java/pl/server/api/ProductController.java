@@ -89,6 +89,11 @@ public class ProductController {
         return productService.existsByName(name);
     }
 
+    @GetMapping(path = "/search", params = "name")
+    public List<Product> ProductByName(@RequestParam(value="name") String name){
+        return productRepository.findProductByNameStartingWithIgnoreCase(name);
+    }
+
     @GetMapping(path = "")
     public List<Product> getAllProducts(){
         return productService.findAll();
