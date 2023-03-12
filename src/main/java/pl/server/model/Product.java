@@ -20,20 +20,6 @@ public class Product {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @Override
-    public String toString() {
-        return "Product{" +
-                "id=" + id +
-                ", name='" + name + '\'' +
-                ", price=" + price +
-                ", description='" + description + '\'' +
-                ", fileName='" + fileName + '\'' +
-                ", category=" + category +
-                ", uservendor=" + uservendor +
-                '}';
-    }
-
-
     private String name;
 
     private BigDecimal price;

@@ -8,6 +8,10 @@ import org.springframework.web.bind.annotation.*;
 import pl.server.model.Order;
 import pl.server.service.OrderService;
 
+
+
+import javax.management.Query;
+import javax.persistence.EntityManager;
 import java.io.IOException;
 import java.util.List;
 
@@ -17,6 +21,7 @@ import java.util.List;
 @RequestMapping("/orders")
 public class OrderController {
 
+    private EntityManager entityManager;
     @Autowired
     private OrderService orderService;
 
@@ -39,11 +44,16 @@ public class OrderController {
     }
 
 
+
+
     @PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
     public Order updateOrder(@RequestBody Order order){
-        System.out.println("hahahahahh"+order);
+
         return orderService.updateOrder(order);
     }
+
+
+
 
     @GetMapping(value = "/{id}")
     public Iterable<Order> getOrders(@PathVariable String id){
